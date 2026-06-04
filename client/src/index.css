@@ -6,7 +6,7 @@
   --color-movie-text-main: #ffffff;
   --color-movie-text-sec: #99aab5;
   --color-movie-highlight: #ffc107;
-
+  --color-movie-border: #14b2d633;
   --font-display: "Inter", sans-serif; /* Για τίτλους */
   --font-body: "Roboto", sans-serif; /* Για κείμενα */
 }
