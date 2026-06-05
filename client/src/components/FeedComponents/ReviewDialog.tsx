@@ -4,6 +4,11 @@ import ProfPic from "../../Assets/ProfPic.png";
 interface ReviewDialogProps {
   isOpen: boolean;
   onClose: () => void;
+  onReviewSubmit: (review: {
+    movieTitle: string;
+    rating: number;
+    reviewText: string;
+  }) => void;
 }
 
 const MOCK_MOVIES = [
@@ -15,7 +20,11 @@ const MOCK_MOVIES = [
   "Fight Club",
 ];
 
-export default function ReviewDialog({ isOpen, onClose }: ReviewDialogProps) {
+export default function ReviewDialog({
+  isOpen,
+  onClose,
+  onReviewSubmit,
+}: ReviewDialogProps) {
   const [movieSearch, setMovieSearch] = useState("");
   const [selectedMovie, setSelectedMovie] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
@@ -37,8 +46,11 @@ export default function ReviewDialog({ isOpen, onClose }: ReviewDialogProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ movie: selectedMovie, rating, review: reviewText });
-
+    onReviewSubmit({
+      movieTitle: selectedMovie,
+      rating: rating,
+      reviewText: reviewText,
+    });
     setMovieSearch("");
     setSelectedMovie("");
     setRating(0);
