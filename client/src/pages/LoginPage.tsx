@@ -24,10 +24,27 @@ function LoginPage() {
     
 
     try {
-        const data = await loginUser(formData);      
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        navigate("/home");
+      //  const data = await loginUser(formData);      
+      //  localStorage.setItem("token", data.token);
+      //  localStorage.setItem("user", JSON.stringify(data.user));
+
+      // demo code
+        const savedUserString = localStorage.getItem("mockUser");
+        if (!savedUserString) {
+            alert("User not found");
+            return;
+        }
+        const savedUser = JSON.parse(savedUserString);
+        if (formData.email === savedUser.email && formData.password === savedUser.password) {   // email: user@gmail.com, password: user12345
+          localStorage.setItem("token", "fake-demo-token-12345");
+          localStorage.setItem("user", JSON.stringify(savedUser));
+          alert("Login successful");
+          navigate("/home");
+        } else {
+          alert("Invalid email or password!");
+        }
+
+
     } catch (error) {
         console.log(error);
         alert("Login failed");

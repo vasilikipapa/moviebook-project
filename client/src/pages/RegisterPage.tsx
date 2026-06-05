@@ -27,8 +27,12 @@ function RegisterPage() {
     }
 
     try {
-        const data = await registerUser(formData);
-        console.log(data);
+      //  const data = await registerUser(formData);
+      //  console.log(data);
+
+      // demo code
+        localStorage.setItem("mockUser", JSON.stringify(formData));
+
         alert("Registration successful");
         navigate("/login");
     } catch (error) {
