@@ -5,10 +5,14 @@ import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import FeedPage from "./pages/FeedPage";
+import Navbar from "./components/Navbar";
+
 function App() {
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
