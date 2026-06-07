@@ -4,11 +4,9 @@ import { useEffect, useState } from "react";
 import EditProfileModal from "../components/EditProfileModal";
 
 interface UserProfile {
+  name: string;
   username: string;
-  firstName: string;
-  lastName: string;
   email: string;
-  city: string;
   profileImage?: string; 
 }
 
@@ -81,13 +79,8 @@ function ProfilePage() {
 
         <div className="w-full text-left space-y-3 mb-6 bg-movie-bg/30 p-4 rounded border border-gray-700/50">    
           <p className="text-sm text-movie-text-main m-1 flex items-center">
-            <strong className="text-movie-text-sec font-medium inline-block w-24 shrink-0">First Name:</strong> 
-            <span className="text-movie-text-main">{user?.firstName}</span>
-          </p>
-          
-          <p className="text-sm text-movie-text-main m-1 flex items-center">
-            <strong className="text-movie-text-sec font-medium inline-block w-24 shrink-0">Last Name:</strong> 
-            <span className="text-movie-text-main">{user?.lastName}</span>
+            <strong className="text-movie-text-sec font-medium inline-block w-24 shrink-0">Name:</strong> 
+            <span className="text-movie-text-main">{user?.name}</span>
           </p>
           
           <p className="text-sm text-movie-text-main m-1 flex items-center">
@@ -100,10 +93,6 @@ function ProfilePage() {
             <span className="text-movie-text-main truncate">{user?.email}</span>
           </p>
           
-          <p className="text-sm text-movie-text-main m-1 flex items-center">
-            <strong className="text-movie-text-sec font-medium inline-block w-24 shrink-0">City:</strong> 
-            <span className="text-movie-text-main">{user?.city}</span>
-          </p>
         </div>
 
         <button 

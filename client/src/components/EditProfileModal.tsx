@@ -2,32 +2,26 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 interface UserProfile {
+  name: string;
   username: string;
-  firstName: string;
-  lastName: string;
   email: string;
-  city: string;
   profileImage?: string; 
 }
 
 function EditProfileModal({ isOpen, onClose, user, onSave }: { isOpen: boolean; onClose: () => void; user: UserProfile | null; onSave: (updatedUser: UserProfile) => void }) {
   const [editForm, setEditForm] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     username: "",
     email: "",
-    city: "",
     profileImage: "",
   });
 
   useEffect(() => {
     if (user) {
       setEditForm({
-        firstName: user.firstName || "",
-        lastName: user.lastName || "",
+        name: user.name || "",
         username: user.username || "",
         email: user.email || "",
-        city: user.city || "",
         profileImage: user.profileImage || "",
       });
     }
@@ -47,18 +41,11 @@ function EditProfileModal({ isOpen, onClose, user, onSave }: { isOpen: boolean; 
         <h3 className="text-2xl font-bold font-display mb-6 text-movie-text-main">Edit Profile Info</h3>
         <form onSubmit={handleSave} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-movie-text-sec mb-1">First Name:</label>
+            <label className="block text-sm font-medium text-movie-text-sec mb-1">Name:</label>
             <input
               type="text"
-              value={editForm.firstName}
-              onChange={(e) => setEditForm({ ...editForm, firstName: e.target.value })}
-              className="w-full px-3 py-2 bg-movie-bg border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-movie-accent text-movie-text-main mb-2"
-            />
-            <label className="block text-sm font-medium text-movie-text-sec mb-1">Last Name:</label>
-            <input
-              type="text"
-              value={editForm.lastName}
-              onChange={(e) => setEditForm({ ...editForm, lastName: e.target.value })}
+              value={editForm.name}
+              onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
               className="w-full px-3 py-2 bg-movie-bg border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-movie-accent text-movie-text-main mb-2"
             />
             <label className="block text-sm font-medium text-movie-text-sec mb-1">Username:</label>
@@ -74,15 +61,7 @@ function EditProfileModal({ isOpen, onClose, user, onSave }: { isOpen: boolean; 
               value={editForm.email}
               onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
               className="w-full px-3 py-2 bg-movie-bg border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-movie-accent text-movie-text-main mb-2"
-            />
-            <label className="block text-sm font-medium text-movie-text-sec mb-1">City:</label>
-            <input
-              type="text"
-              value={editForm.city}
-              onChange={(e) => setEditForm({ ...editForm, city: e.target.value })}
-              className="w-full px-3 py-2 bg-movie-bg border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-movie-accent text-movie-text-main mb-2"
-            />
-            
+            />            
           </div>  
           <div className="flex justify-end gap-3 pt-4 border-t border-gray-800 mt-6">
             <button

@@ -114,9 +114,7 @@ function Navbar() {
                 
                 <div className="border-t border-gray-800 my-1"></div>
                 
-                <button onClick={handleLogout} className="flex items-center space-x-3 px-4 py-2.5 text-[#eb5959] hover:bg-movie-bg font-medium transition-colors text-left w-full">
-                  <FaSignOutAlt className="w-4" /> <span>Logout</span>
-                </button>
+                
               </div>
             )}
           </div>
