@@ -4,11 +4,11 @@ import { BadRequestError } from '../utils/errors'
 
 const validate = (schema: ZodType<any, any, any>) => {
   return (req: Request, res: Response, next: NextFunction) => {
-    const result = schema.safeParse({
-      body: req.body,
-      query: req.query,
-      params: req.params
-    })
+    const parseData: Record<string, any> = {
+      body: req.body
+    }
+
+    const result = schema.safeParse(parseData)
 
     if (!result.success) {
       const fieldErrors: Record<string, string> = {}

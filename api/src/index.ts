@@ -5,6 +5,7 @@ import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import {
   auth,
+  movies,
 } from './routes'
 import { errorHandler } from './middlewares'
 import useDatabase from './lib/database'
@@ -31,6 +32,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use('/api/auth', auth)
+app.use('/api/movies', movies)
 
 app.use(errorHandler)
 
