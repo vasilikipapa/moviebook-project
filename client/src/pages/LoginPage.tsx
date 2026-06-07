@@ -7,7 +7,7 @@ import FormInput from "../components/FormInput";
 
 function LoginPage() {
   const [formData, setFormData] = useState({
-    email: "",
+    usernameOrEmail: "",
     password: "",
   });
 
@@ -17,17 +17,34 @@ function LoginPage() {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!formData.email || !formData.password) {
+    if (!formData.usernameOrEmail || !formData.password) {
         alert("Please fill all the fields");
         return;
     }
     
 
     try {
-        const data = await loginUser(formData);      
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        navigate("/home");
+      //  const data = await loginUser(formData);      
+      //  localStorage.setItem("token", data.token);
+      //  localStorage.setItem("user", JSON.stringify(data.user));
+
+      // demo code
+        const savedUserString = localStorage.getItem("mockUser");
+        if (!savedUserString) {
+            alert("User not found");
+            return;
+        }
+        const savedUser = JSON.parse(savedUserString);
+        if ((formData.usernameOrEmail === savedUser.email || formData.usernameOrEmail === savedUser.username) && formData.password === savedUser.password) {   // email: user@gmail.com, password: user12345
+          localStorage.setItem("token", "fake-demo-token-12345");
+          localStorage.setItem("user", JSON.stringify(savedUser));
+          alert("Login successful");
+          navigate("/home");
+        } else {
+          alert("Invalid email or password!");
+        }
+
+
     } catch (error) {
         console.log(error);
         alert("Login failed");
@@ -35,24 +52,18 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center">
-      <div>
-        <h1 className="text-[36px] text-movie-accent mb-10 font-display font-bold">
-          MovieBook
-        </h1>   
-      </div>
-
-      <div className="w-[400px] bg-movie-surface rounded-lg border border-[#b4b4b4] p-[30px]">
-        <h1 className="text-center mb-5 text-2xl font-bold font-display">Welcome Back</h1>
+    <div className="min-h-[85vh] flex flex-col justify-center items-center py-10">
+      <div className="w-[400px] bg-movie-surface rounded-lg border border-[#b4b4b4] p-[30px] shadow-xl">
+        <h1 className="text-center mb-6 text-2xl font-bold font-display text-movie-text-main">Welcome Back</h1>
 
         <form onSubmit={handleLogin}>
           <FormInput
             icon={<FaUser />}
-            label="Email:"
-            type="email"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            placeholder="Email Address"
+            label="Email / Username:"
+            type="text"
+            value={formData.usernameOrEmail}
+            onChange={(e) => setFormData({ ...formData, usernameOrEmail: e.target.value })}
+            placeholder="Email Address or Username"
           />
           <div className="relative">
             <FormInput
@@ -72,9 +83,15 @@ function LoginPage() {
             </span>
           </div>
 
-          <button className="w-full px-5 py-2.5 bg-movie-accent text-movie-text-main rounded mt-4 cursor-pointer hover:bg-[#1b97b2] transition-colors" type="submit">
-            Login
-          </button>
+          <div className="flex justify-between items-center mt-6">
+            <button className="px-6 py-2.5 bg-movie-accent text-movie-text-main rounded cursor-pointer hover:bg-[#1b97b2] transition-colors font-bold" type="submit">
+              Login
+            </button>
+
+            <button className="px-4 py-2 text-sm border border-gray-600 text-movie-text-main rounded hover:bg-movie-bg transition-colors cursor-pointer font-medium" onClick={() => navigate("/")} type="button">
+              Back to Home
+            </button>
+          </div>
 
         </form>
 

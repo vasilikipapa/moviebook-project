@@ -10,64 +10,75 @@ import MovieSection from "../components/MovieSection";
 
 function HomePage() {
   const navigate = useNavigate();
-
   const user = JSON.parse(localStorage.getItem("user") || "null");
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/");
-  };
-
-  return (
-    <div className="min-h-screen bg-movie-bg text-movie-text-main font-body">
-      <nav className="w-full bg-movie-surface border-b border-gray-800 px-6 py-4 flex justify-between items-center shadow-lg">
-        <h1
-          className="text-5xl font-black font-display text-movie-accent tracking-wide cursor-pointer"
-          onClick={() => navigate("/")}
-        >
-          MovieBook
-        </h1>
-
-        <div className="flex items-center space-x-4">
+  {
+    /* αν δεν είναι συνδεδεμένος */
+  }
+  if (!user) {
+    return (
+      <div className="min-h-[80vh] flex flex-col justify-center items-center text-center p-6 bg-movie-bg text-movie-text-main">
+        <h2 className="text-5xl font-bold font-display mb-4">
+          Welcome to <span className="text-movie-accent">MovieBook</span>
+        </h2>
+        <p className="text-movie-text-sec text-xl max-w-xl mx-auto mb-8">
+          The ultimate platform for movie lovers. Discover trending films,
+          create your personal watchlists, and share reviews with your friends.
+        </p>
+        <div className="flex space-x-4">
           <button
             onClick={() => navigate("/login")}
-            className="px-4 py-2 text-sm bg-movie-bg hover:bg-movie-surface border border-gray-700 rounded-md transition-colors cursor-pointer"
+            className="px-6 py-3 bg-movie-accent text-movie-text-main font-bold rounded-lg hover:bg-[#1b97b2] transition-colors cursor-pointer"
           >
-            Login
+            Get Started
           </button>
-
           <button
-            onClick={() => navigate("/profile")}
-            className="px-4 py-2 text-sm bg-movie-bg hover:bg-movie-surface border border-gray-700 rounded-md transition-colors cursor-pointer"
+            onClick={() => navigate("/register")}
+            className="px-6 py-3 border border-gray-600 rounded-lg hover:bg-movie-surface transition-colors cursor-pointer"
           >
-            My Profile
-          </button>
-
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 text-sm bg-[#eb5959] hover:bg-[#d44b4b] text-white rounded-md transition-colors cursor-pointer"
-          >
-            Logout
+            Create an Account
           </button>
         </div>
-      </nav>
+      </div>
+    );
+  }
 
+  {
+    /* αν είναι συνδεδεμένος */
+  }
+  return (
+    <div className="min-h-screen bg-movie-bg text-movie-text-main font-body">
       <main className="w-full px-16 py-14">
+        {/* Search Bar */}
         <div className="flex justify-center mb-10">
           <input
             type="text"
             placeholder="Search movies..."
-            className="w-full max-w-3xl h-14 px-5 bg-movie-surface text-white border-2 border-movie-accent rounded-xl text-center outline-none"
+            className="w-full max-w-3xl h-14 px-5 bg-movie-surface text-white border-2 border-movie-accent rounded-xl text-center outline-none focus:ring-2 focus:ring-movie-accent/50 transition-all"
           />
         </div>
+
+        <div className="bg-movie-surface rounded-xl border border-gray-800 p-8 shadow-md text-center mb-10 max-w-3xl mx-auto">
+          <h2 className="text-4xl font-bold font-display mb-2">
+            Welcome back,{" "}
+            <span className="text-movie-accent">
+              {user.username || user.email}
+            </span>
+            !
+          </h2>
+          <p className="text-movie-text-sec text-lg m-0">
+            Explore your favorite movies, manage your watchlist, and see what's
+            trending today.
+          </p>
+        </div>
+
         <HeroBanner />
 
-        <MovieSection title="Keep Watching" movies={keepWatchingMovies} />
-
-        <MovieSection title="Trending Movies" movies={trendingMovies} />
-
-        <MovieSection title="Top Rated" movies={topRatedMovies} />
+        <div className="space-y-10 mt-10">
+          <MovieSection title="Keep Watching" movies={keepWatchingMovies} />
+          <MovieSection title="Trending Movies" movies={trendingMovies} />
+          <MovieSection title="Top Rated" movies={topRatedMovies} />
+        </div>
       </main>
     </div>
   );

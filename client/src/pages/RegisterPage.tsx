@@ -27,8 +27,12 @@ function RegisterPage() {
     }
 
     try {
-        const data = await registerUser(formData);
-        console.log(data);
+      //  const data = await registerUser(formData);
+      //  console.log(data);
+
+      // demo code
+        localStorage.setItem("mockUser", JSON.stringify(formData));
+
         alert("Registration successful");
         navigate("/login");
     } catch (error) {
@@ -38,15 +42,9 @@ function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center">
-      <div>
-        <h1 className="text-[36px] text-movie-accent mb-10 font-display font-bold">
-          MovieBook
-        </h1>   
-      </div>
-
-      <div className="w-[400px] bg-movie-surface rounded-lg border border-[#b4b4b4] p-[30px]">
-        <h1 className="text-center mb-5 text-2xl font-bold font-display">Register</h1>
+    <div className="min-h-[85vh] flex flex-col justify-center items-center py-10">
+      <div className="w-[400px] bg-movie-surface rounded-lg border border-[#b4b4b4] p-[30px] shadow-xl">
+        <h1 className="text-center mb-6 text-2xl font-bold font-display text-movie-text-main">Register</h1>
 
         <form onSubmit={handleRegister}>
           <FormInput
@@ -101,10 +99,22 @@ function RegisterPage() {
               {showPassword ? <FaEye /> : <FaEyeSlash />}
             </span>
           </div>
+          <div className="flex justify-between items-center mt-6">
+            <button 
+              className="px-6 py-2.5 bg-movie-accent text-movie-text-main rounded cursor-pointer hover:bg-[#1b97b2] transition-colors font-bold" 
+              type="submit"
+            >
+              Create Account
+            </button>
 
-          <button className="w-full px-5 py-2.5 bg-movie-accent text-movie-text-main rounded mt-4 cursor-pointer hover:bg-[#1b97b2] transition-colors" type="submit">
-            Create Account
-          </button>
+            <button 
+              type="button"
+              onClick={() => navigate("/")} 
+              className="px-4 py-2 text-sm border border-gray-600 text-movie-text-main rounded hover:bg-movie-bg transition-colors cursor-pointer font-medium"
+            >
+              Back to Home
+            </button>
+          </div>
 
         </form>
 
