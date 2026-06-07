@@ -41,9 +41,8 @@ function LoginPage() {
           alert("Login successful");
           navigate("/home");
         } else {
-          alert("Invalid email or password!");
+          alert("Invalid email/username or password!");
         }
-
 
     } catch (error) {
         console.log(error);

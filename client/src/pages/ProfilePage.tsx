@@ -1,6 +1,7 @@
 import { FaUserCircle } from "react-icons/fa";
 import { getProfile } from "../services/userService";
 import { useEffect, useState } from "react";
+import EditProfileModal from "../components/EditProfileModal";
 
 interface UserProfile {
   username: string;
@@ -15,6 +16,8 @@ function ProfilePage() {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -30,8 +33,6 @@ function ProfilePage() {
         } else {
           setError("User not found. Please login.");
         }
-
-        
 
       } catch (err: any) {
         setError(err.message || "Failed to load profile");
@@ -51,9 +52,19 @@ function ProfilePage() {
     return <p className="text-center mt-10 text-red-500">{error}</p>;
   }
 
+  const handleSaveChanges = (updatedUser: UserProfile) => {
+    setUser(updatedUser);
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+    localStorage.setItem("mockUser", JSON.stringify(updatedUser));
+
+    setIsModalOpen(false);
+    alert("Profile updated successfully!")
+  }
+
   return (
     <div className="min-h-[80vh] flex flex-col justify-center items-center p-4">
       <div className="w-full max-w-[360px] bg-movie-surface rounded-lg border border-[#b4b4b4] p-[30px] flex flex-col items-center">
+        
         <h2 className="text-2xl font-bold font-display mb-6 text-movie-text-main">Your Profile</h2>
 
         {user?.profileImage ? (
@@ -95,9 +106,20 @@ function ProfilePage() {
           </p>
         </div>
 
-        <button className="px-4 py-2 bg-movie-accent text-movie-text-main rounded font-medium cursor-pointer hover:bg-[#1b97b2] transition-colors">
+        <button 
+          className="px-4 py-2 bg-movie-accent text-movie-text-main rounded font-medium cursor-pointer hover:bg-[#1b97b2] transition-colors"
+          onClick={() => setIsModalOpen(true)}
+        >
           Edit Profile
         </button>
+
+        <EditProfileModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          user={user}
+          onSave={handleSaveChanges}
+        />
+
       </div>    
     </div>    
   );
