@@ -5,30 +5,34 @@ import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import FeedPage from "./pages/FeedPage";
-import Navbar from "./components/Navbar";
+import MainLayout from "./components/Layouts/MainLayout";
+import NavBarLayout from "./components/Layouts/NavBarLayout";
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/" element={<MainLayout> <HomePage /> </MainLayout>} />
+        <Route path="/home" element={<MainLayout> <HomePage /> </MainLayout>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route
           path="/profile"
           element={
             <ProtectedRoute>
-              <ProfilePage />
+              <NavBarLayout>
+                <ProfilePage />
+              </NavBarLayout>
             </ProtectedRoute>
           }
         />
         <Route
           path="/feed"
           element={
-            <ProtectedRoute>
-              <FeedPage />
+            <ProtectedRoute> 
+              <MainLayout>
+                <FeedPage />
+              </MainLayout>
             </ProtectedRoute>
           }
         />

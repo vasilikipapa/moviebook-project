@@ -9,5 +9,6 @@ router.post('/login', validator(loginSchema), controller.login)
 router.post('/register', validator(registerSchema), controller.register)
 router.post('/logout', auth, controller.logout)
 router.get('/me', auth, controller.me)
+router.post('/me', auth, controller.updateMe)
 
 export default router
