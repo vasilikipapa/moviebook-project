@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaFilm } from "react-icons/fa";
+import LogoutButton from "./LogoutButton";
 
 interface FooterProps {
   isLoggedIn: boolean;
@@ -48,11 +49,10 @@ function Footer({ isLoggedIn, onLogout }: FooterProps) {
                   <Link to="/profile" className="hover:text-movie-accent transition-colors">My Profile</Link>
                 </li>
                 <li>
-                  <button 
-                    onClick={onLogout}
+                  <LogoutButton 
+                    onLogoutSuccess={onLogout}
                     className="hover:text-red-400 transition-colors text-left cursor-pointer">
-                    Logout
-                  </button>
+                  </LogoutButton>
                 </li>
               </>
             )}
