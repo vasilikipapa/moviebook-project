@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -9,30 +9,46 @@ import FeedPage from "./pages/FeedPage";
 import MainLayout from "./components/Layouts/MainLayout";
 import NavBarLayout from "./components/Layouts/NavBarLayout";
 import LandingPage from "./pages/LandingPage";
+import MoviePage from "./pages/MoviePage";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route 
+        <Route
           path="/"
           element={
             <MainLayout>
-              <Suspense fallback={<div className="min-h-screen bg-movie-bg flex items-center justify-center text-movie-accent animate-pulse">Loading Preview...</div>}>
-                <LandingPage /> 
-              </Suspense> 
-            </MainLayout>} />
-        <Route 
-          path="/home" 
+              <Suspense
+                fallback={
+                  <div className="min-h-screen bg-movie-bg flex items-center justify-center text-movie-accent animate-pulse">
+                    Loading Preview...
+                  </div>
+                }
+              >
+                <LandingPage />
+              </Suspense>
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/home"
           element={
             <ProtectedRoute>
-              <MainLayout> 
-                <Suspense fallback={<div className="min-h-screen bg-movie-bg flex items-center justify-center text-movie-accent animate-pulse">Loading MovieBook Dashboard...</div>}>
-                  <HomePage /> 
+              <MainLayout>
+                <Suspense
+                  fallback={
+                    <div className="min-h-screen bg-movie-bg flex items-center justify-center text-movie-accent animate-pulse">
+                      Loading MovieBook Dashboard...
+                    </div>
+                  }
+                >
+                  <HomePage />
                 </Suspense>
               </MainLayout>
             </ProtectedRoute>
-          } />
+          }
+        />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route
@@ -48,9 +64,19 @@ function App() {
         <Route
           path="/feed"
           element={
-            <ProtectedRoute> 
+            <ProtectedRoute>
               <MainLayout>
                 <FeedPage />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/movies/:id"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <MoviePage />
               </MainLayout>
             </ProtectedRoute>
           }
