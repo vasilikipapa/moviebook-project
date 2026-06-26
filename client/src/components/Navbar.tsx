@@ -41,31 +41,32 @@ function Navbar({isLoggedIn, currentUser, onLogout, searchQuery, setSearchQuery}
     };
 
     return (
-    <nav className="w-full bg-movie-surface border-b border-gray-800 px-6 py-4 flex justify-between items-center shadow-lg">
-      <h1 
+<nav className="w-full sticky top-0 z-50 bg-movie-surface border-b border-gray-800 px-6 py-4 flex justify-between items-center shadow-lg">      <h1 
         className="text-3xl font-bold font-display text-movie-accent tracking-wide cursor-pointer select-none" 
         onClick={() => { setIsDropdownOpen(false); navigate(isLoggedIn ? "/home" : "/")}}
         >
           MovieBook
       </h1>
       
-      <div className="flex items-center">
+      <div className="flex items-center flex-1 justify-center">
         {/* Search Bar */}
-        <form onSubmit={handleSearchSubmit} className="px-4 flex justify-center w-full max-w-3xl relative">
-          <div className="absolute left-8 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-            <FaSearch />
-          </div>
-          <input
-            type="text"
-            placeholder="Search movies..."
-            value={searchQuery}
-            onChange={(e) => {
-              setSearchQuery(e.target.value); 
-              navigate(`/home?search=${encodeURIComponent(e.target.value)}`);
-            }}
-            className="w-full h-14 pl-12 pr-5 bg-movie-surface text-white border-2 border-movie-accent rounded-xl text-center outline-none focus:ring-2 focus:ring-movie-accent/50 transition-all"
-          />
-        </form>
+     <form onSubmit={handleSearchSubmit} className="flex-1 flex justify-center px-8">
+  <div className="relative w-1/2">
+    <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+      <FaSearch />
+    </div>
+    <input
+      type="text"
+      placeholder="Search movies..."
+      value={searchQuery}
+      onChange={(e) => {
+        setSearchQuery(e.target.value); 
+        navigate(`/home?search=${encodeURIComponent(e.target.value)}`);
+      }}
+      className="w-full h-10 pl-10 pr-5 bg-movie-surface text-white border-2 border-movie-accent rounded-xl text-center outline-none focus:ring-2 focus:ring-movie-accent/50 transition-all"
+    />
+  </div>
+</form>
 
         <button 
           onClick={() => { setIsDropdownOpen(false); setSearchQuery(""); navigate(isLoggedIn ? "/home" : "/"); }}

@@ -32,10 +32,13 @@ function HeroBanner({ backdrops }: { backdrops: any[] }) {
 
   return (
  <section 
-  className="max-w-[1500px] mx-auto mb-12 px-12 py-16 rounded-2xl border border-movie-accent shadow-lg text-left bg-cover bg-center transition-all duration-1000"
-  style={{
-    backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(https://image.tmdb.org/t/p/original${backdrops[activeSlide]?.backdrop_path})`
-  }}
+  
+  className="w-full mx-auto mb-12 px-12 py-32 rounded-2xl border border-movie-accent shadow-lg text-left bg-cover bg-center transition-all duration-1000"
+ style={{
+    backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(https://image.tmdb.org/t/p/original${backdrops[activeSlide]?.backdrop_path})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center top'
+}}
 >
       <h2 className="text-5xl font-bold text-movie-accent mb-4">
         {currentSlide.title}

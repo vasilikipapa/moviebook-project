@@ -80,9 +80,13 @@ function HomePage({searchQuery} : {searchQuery?: string}) {
 
   const isSearching = urlSearchQuery && urlSearchQuery.trim() !== "";
 
-  return (
-    <div className="min-h-screen bg-movie-bg text-movie-text-main font-body">
-      <main className="w-full px-16 py-14">
+  return (<div className="min-h-screen text-movie-text-main font-body relative">
+  {/* Glowing orbs */}
+  <div className="absolute top-[-200px] left-[-200px] w-[600px] h-[600px] rounded-full pointer-events-none z-0" style={{background: 'radial-gradient(circle, rgba(20,178,214,0.3) 0%, transparent 70%)'}} />
+  <div className="absolute bottom-[40%] left-[-300px] w-[500px] h-[500px] rounded-full pointer-events-none z-0" style={{background: 'radial-gradient(circle, rgba(100,50,214,0.4) 0%, transparent 70%)'}} />
+  <div className="absolute bottom-[-200px] right-[-200px] w-[700px] h-[700px] rounded-full pointer-events-none z-0" style={{background: 'radial-gradient(circle, rgba(20,178,214,0.25) 0%, transparent 70%)'}} />
+  <div className="absolute top-[40%] right-[-300px] w-[500px] h-[500px] rounded-full pointer-events-none z-0" style={{background: 'radial-gradient(circle, rgba(100,50,214,0.4) 0%, transparent 70%)'}} />
+  <main className="w-full px-16 py-14 relative z-10">
 
       {isSearching ? (
         <div className="space-y-6">
@@ -97,44 +101,6 @@ function HomePage({searchQuery} : {searchQuery?: string}) {
         </div>
       ) : (
         <>
-          {isLoggedIn ? (
-            <div className="bg-movie-surface rounded-xl border border-gray-800 p-8 shadow-md text-center mb-10 max-w-3xl mx-auto">
-              <h2 className="text-4xl font-bold font-display mb-2">
-                Welcome back,{" "}
-                <span className="text-movie-accent">
-                  {localUser.name || localUser?.username || localUser?.email}
-                </span>
-                !
-              </h2>
-              <p className="text-movie-text-sec text-lg m-0">
-                Explore your favorite movies, manage your watchlist, and see what's
-                trending today.
-              </p>
-            </div>
-          ) : (
-            <div className="bg-movie-surface rounded-xl border border-gray-800 p-8 shadow-md text-center mb-10 max-w-3xl mx-auto">
-              <h2 className="text-4xl font-bold font-display mb-2">
-                Welcome to <span className="text-movie-accent">MovieBook</span>
-              </h2>
-              <p className="text-movie-text-sec text-lg mb-6">
-                Your personal cinema diary. Track films, write reviews, and build your ultimate watchlist.
-              </p>
-              <div className="flex justify-center space-x-4">
-                <button 
-                  onClick={() => navigate("/register")}
-                  className="px-6 py-3 bg-movie-accent text-movie-text-main font-bold rounded-lg hover:bg-[#1b97b2] transition-colors cursor-pointer"
-                >
-                  Get Started For Free
-                </button>
-                <button 
-                  onClick={() => navigate("/login")}
-                  className="px-6 py-3 border border-gray-600 rounded-lg hover:bg-movie-surface transition-colors cursor-pointer"
-                >
-                  Sign In
-                </button>
-              </div>
-            </div>
-          )}
 
           <HeroBanner backdrops={randomBackdrops} />
 
